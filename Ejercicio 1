@@ -1,0 +1,13 @@
+public class Clase9 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Estudiante Estudiantes[] = new Estudiante[1];
+        for (int i = 0; i < Estudiantes.length; i++) {
+            JOptionPane.showMessageDialog(null, "Se van a solicitar los datos de los estudiantes");
+            String nombre = JOptionPane.showInputDialog(null, "Escriba el nombre:");
+            String apellidos = JOptionPane.showInputDialog(null, "Escriba los apellidos:");
+            int cedula = Integer.parseInt(JOptionPane.showInputDialog(null, "Escriba la cedula:"));
+            Estudiante[1] = new Estudiante(cedula, nombre, apellidos);
