@@ -1,0 +1,93 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+package com.mycompany.practicaevaluada3;
+import java.util.Scanner;
+/**
+ *
+ * @author kiyomi
+ */
+public class PracticaEvaluada3 {
+    
+    public static int [][] LeerDatos(int f, int c) {
+        int a[][] = new int[f][c];
+        Scanner s = new Scanner(System.in);
+        
+        for (int i = 0; i < f; i++) {
+            System.out.println("Ingrese las notas del estudiante " + (i + 1) + ":");
+            for (int j = 0; j < c; j++) {
+                switch (j) {
+                    case 0:
+                        System.out.print("Nota del EP1: ");
+                        break;
+                    case 1:
+                        System.out.print("Nota del EP2: ");
+                        break;
+                    case 2:
+                        System.out.print("Promedio de Prácticas: ");
+                        break;
+                    case 3:
+                        System.out.print("Promedio de Laboratorios: ");
+                        break;
+                }
+                a[i][j] = s.nextInt();
+            }
+        }
+        return a;
+    }
+    public static double[] CalculoPromedios(int a[][], int f) {
+        double[] promedios = new double[f];
+        
+        for (int i = 0; i < f; i++) {
+            promedios[i] = a[i][0] * 0.2 + a[i][1] * 0.2 + a[i][2] * 0.3 + a[i][3] * 0.3;
+        }
+        return promedios;
+    }
+    
+     public static void ImprimirDatos(int a[][], int f, int c, double[] promedios) {
+        System.out.println("Datos de los estudiantes:");
+        for (int i = 0; i < f; i++) {
+            System.out.printf("Estudiante %d: Examen 1: %d, Examen 2: %d, Promedio de Prácticas: %d, Promedio de Laboratorios: %d | Promedio Final: %.2f\n", 
+                (i + 1), a[i][0], a[i][1], a[i][2], a[i][3], promedios[i]);
+        }
+    }
+     
+     public static double PromedioClase(double[] promedios, int f) {
+        double suma = 0;
+        for (int i = 0; i < f; i++) {
+            suma += promedios[i];
+        }
+        return suma / f;
+    }
+     
+     public static void ImprimirReprobados(int a[][], int f, double[] promedios, double promedioclase) {
+        System.out.println("\nEstudiantes debajo del promedio del aula:");
+        for (int i = 0; i < f; i++) {
+            if (promedios[i] < promedioclase) {
+                System.out.printf("Estudiante %d: Promedio Final: %.2f\n", (i + 1), promedios[i]);
+            }
+        }
+    }
+     
+     public static void main(String[] args) {
+        int filas = 5;  // Número de estudiantes
+        int columnas = 4;  // 2 Exámenes, 1 Promedio de Prácticas, 1 Promedio de Laboratorios
+
+        // Leer los datos de los estudiantes
+        int[][] datosEstudiantes = LeerDatos(filas, columnas);
+
+        // Calcular los promedios ponderados de cada estudiante
+        double[] promedios = CalculoPromedios(datosEstudiantes, filas);
+
+        // Imprimir los datos de los estudiantes y sus promedios finales
+        ImprimirDatos(datosEstudiantes, filas, columnas, promedios);
+
+        // Calcular el promedio general del aula
+        double promedioclase = PromedioClase(promedios, filas);
+        System.out.printf("\nPromedio general del aula: %.2f\n", promedioclase);
+
+        // Imprimir los estudiantes que están debajo del promedio del aula
+        ImprimirReprobados(datosEstudiantes, filas, promedios, promedioclase);
+        System.out.printf("Sera para la proxima :(");
+    }
+}
