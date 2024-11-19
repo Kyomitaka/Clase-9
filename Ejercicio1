@@ -1,0 +1,103 @@
+package com.mycompany.clase9e1;
+
+import java.util.Scanner;
+
+public class Clase9E1 {
+
+    public static int LeeNumInt(String msg){
+        int valor = 0;
+        String letras;
+        boolean valido = false;
+        Scanner leer2 = new Scanner(System.in);
+        
+        while (!valido){
+                try {
+                    System.out.print(msg+" : ");
+                    valor = Integer.parseInt(leer2.nextLine());
+                    valido = true;
+                    if (valor < 0) {
+                        System.out.println("Sólo numeros positivos");
+                        valido = false;
+                    } 
+                }
+                catch (NumberFormatException e){
+                    System.out.println("No se permiten caracteres, sólo números");
+                    valido = false;
+                }
+            }        
+        return valor;
+    }
+    
+    public static boolean leerSiNo(){
+        int     sino;
+        boolean continua;
+        
+        sino = LeeNumInt("Desea continuar ('1' para 'SI')");            
+        continua = (sino == 1);
+        
+        return continua;
+    }
+    
+    public static Perros leerDatos(){
+        Scanner leer1 = new Scanner(System.in);
+        
+        Perros  tempo = new Perros();         
+        System.out.print("Ingrese raza  : ");
+        tempo.raza   = leer1.nextLine();
+        System.out.print("Ingrese tamaño: ");
+        tempo.tamano = leer1.nextLine();        
+        tempo.edad   = LeeNumInt("Ingrese edad");
+        System.out.print("Ingrese color : ");
+        tempo.color  = leer1.nextLine();
+        
+        return (tempo);
+    }
+
+    public static void main(String[] args) {
+        Perros  canil[]  = new Perros[10];
+        int     i = 0, conta;
+        boolean continua = true;
+        
+        while (i < 10 && continua ){
+            canil[i] = new Perros();
+            canil[i] = leerDatos();
+            continua = leerSiNo();
+            i++;
+        }
+        
+        conta = i--;
+        System.out.println("");
+        
+        for (i = 0; i < conta; i++)
+            canil[i].getInfo2(i);
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+package com.mycompany.clase9e1;
+
+public class Perros {
+    String raza;
+    String tamano;
+    int    edad;
+    String color;
+
+    public String getInfo1() {
+        return ("\nRaza  : "+raza+
+                "\nTamano: "+tamano+
+                "\nEdad  : "+edad+
+                "\nColor : "+color);
+    }
+    
+    public void getInfo2(int i){
+        System.out.printf("%2d %-10s %-10s %-10s %4d\n",
+                        (i+1), raza, tamano, color, edad);
+    }
+
+    public void setInfo(String raza, String tamanio, int edad, String color){
+        this.raza = raza;
+        tamano    = tamanio;
+        this.edad = edad;
+        this.color= color;
+    }    
+}
